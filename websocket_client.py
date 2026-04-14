@@ -13,7 +13,9 @@ WS_URL = "ws://localhost:8080/ws"
 async def run() -> None:
     logger.info("Connecting to %s", WS_URL)
     async with websockets.connect(WS_URL) as ws:
-        logger.info("Connected — type a message and press Enter to send (Ctrl+C to quit)")
+        logger.info(
+            "Connected — type a message and press Enter to send (Ctrl+C to quit)"
+        )
         loop = asyncio.get_event_loop()
         while True:
             line = await loop.run_in_executor(None, sys.stdin.readline)
