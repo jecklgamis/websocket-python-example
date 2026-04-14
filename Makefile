@@ -3,7 +3,7 @@ GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 DOCKER_IMAGE := websocket-python-example:$(GIT_BRANCH)
 CONTAINER_NAME := websocket-python-example
 
-.PHONY: all install format lint audit test run dev \
+.PHONY: all install-deps format lint audit test run run-dev \
         build-info docker-image docker-run docker-stop up clean
 
 # === Build pipeline ===
@@ -43,6 +43,9 @@ docker-image: build-info
 docker-run:
 	-docker rm -f $(CONTAINER_NAME)
 	docker run --rm --name $(CONTAINER_NAME) -p 8080:8080 -it $(DOCKER_IMAGE)
+
+docker-stop:
+	-docker rm -f $(CONTAINER_NAME)
 
 up: docker-image docker-run
 
